@@ -11,32 +11,40 @@ import {
   View,
 } from 'react-native';
 import GenderInput from '../components/GenderInput';
+import useMahasiswaStore from '../store/useMahasiswaStore';
 
 export default function TambahMahasiswa() {
-  const [mahasiswa, setMahasiswa] = useState([]);
   const [nama, setNama] = useState('');
   const [nim, setNim] = useState('');
   const [jurusan, setJurusan] = useState('');
   const [angkatan, setAngkatan] = useState('');
   const [jenisKelamin, setJenisKelamin] = useState('');
 
-  function tambahMahasiswa() {
-    if (nama && nim && jurusan && angkatan) {
-      const newMhs = {
-        id: +new Date(),
-        nama,
-        nim,
-        jurusan,
-        angkatan,
-        jenisKelamin,
-      };
-    } else {
-      alert('Semua data mahasiswa wajib diisi!');
-    }
+  const tambahMahasiswa = useMahasiswaStore(state => state.addMahasiswa);
+
+  function clearForm() {
+    setNama('');
+    setNim('');
+    setJurusan('');
+    setAngkatan('');
+    setJenisKelamin('');
   }
 
-  function hapusMahasiswa(id) {
-    setMahasiswa(mahasiswa.filter(item => item.id !== id));
+  function handleTambahMahasiswa() {
+    if (!nama || !nim || !jurusan || !angkatan || !jenisKelamin) {
+      alert('Semua field harus diisi!');
+      return;
+    }
+    const newMahasiswa = {
+      id: Math.random().toString(36).substring(7),
+      nama,
+      nim,
+      jurusan,
+      angkatan,
+      jenisKelamin,
+    };
+    tambahMahasiswa(newMahasiswa);
+    clearForm();
   }
 
   return (
@@ -52,6 +60,7 @@ export default function TambahMahasiswa() {
             style={styles.input}
             onChangeText={text => setNama(text)}
             value={nama}
+            autoCapitalize="words"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -61,6 +70,7 @@ export default function TambahMahasiswa() {
             style={styles.input}
             onChangeText={text => setNim(text)}
             value={nim}
+            keyboardType="numeric"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -70,6 +80,7 @@ export default function TambahMahasiswa() {
             style={styles.input}
             onChangeText={text => setJurusan(text)}
             value={jurusan}
+            autoCapitalize="words"
           />
         </View>
         <View style={styles.inputContainer}>
@@ -86,7 +97,7 @@ export default function TambahMahasiswa() {
           jenisKelamin={jenisKelamin}
           setJenisKelamin={setJenisKelamin}
         />
-        <TouchableOpacity style={styles.button} onPress={tambahMahasiswa}>
+        <TouchableOpacity style={styles.button} onPress={handleTambahMahasiswa}>
           <Text style={styles.textButton}>Tambah Mahasiswa</Text>
         </TouchableOpacity>
       </View>

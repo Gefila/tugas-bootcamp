@@ -1,24 +1,7 @@
 import {create} from 'zustand';
 
 const useMahasiswaStore = create(set => ({
-  listMahasiswa: [
-    {
-      id: '1',
-      nama: 'John Doe',
-      nim: '123456789',
-      jurusan: 'Teknik Informatika',
-      angkatan: '2020',
-      jenisKelamin: 'Laki-laki',
-    },
-    {
-      id: '2',
-      nama: 'Jane Smith',
-      nim: '987654321',
-      jurusan: 'Sistem Informasi',
-      angkatan: '2021',
-      jenisKelamin: 'Perempuan',
-    },
-  ],
+  listMahasiswa: [],
   addMahasiswa: mahasiswa =>
     set(state => ({
       listMahasiswa: [...state.listMahasiswa, mahasiswa],

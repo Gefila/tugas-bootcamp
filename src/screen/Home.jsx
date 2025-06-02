@@ -8,17 +8,19 @@ import {
   View,
 } from 'react-native';
 import Mahasiswa from '../components/Mahasiswa';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import useMahasiswaStore from '../store/useMahasiswaStore';
 
 export default function Home() {
   const navigation = useNavigation();
-  const listMahasiswa = useMahasiswaStore((state)=> state.listMahasiswa);
+  const listMahasiswa = useMahasiswaStore(state => state.listMahasiswa);
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.title}>Selamat Datang di Aplikasi Mahasiswa</Text>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TambahMahasiswa')}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('TambahMahasiswa')}>
           <Text style={styles.textButton}>Tambah Mahasiswa</Text>
         </TouchableOpacity>
       </View>
@@ -28,6 +30,7 @@ export default function Home() {
           keyExtractor={item => item.id}
           renderItem={({item}) => <Mahasiswa data={item} />}
           style={{width: '100%'}}
+          contentContainerStyle={{paddingBottom: 200}}
         />
       </View>
     </SafeAreaView>
