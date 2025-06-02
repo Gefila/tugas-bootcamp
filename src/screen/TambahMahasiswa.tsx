@@ -6,15 +6,19 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableNativeFeedback,
+  TouchableOpacity,
   View,
 } from 'react-native';
+import GenderInput from '../components/GenderInput';
 
-export default function tambahMahasiswa() {
+export default function TambahMahasiswa() {
   const [mahasiswa, setMahasiswa] = useState([]);
   const [nama, setNama] = useState('');
   const [nim, setNim] = useState('');
   const [jurusan, setJurusan] = useState('');
   const [umur, setUmur] = useState('');
+  const [jenisKelamin, setJenisKelamin] = useState('');
 
   function tambahMahasiswa() {
     if (nama && nim && jurusan && umur) {
@@ -42,8 +46,7 @@ export default function tambahMahasiswa() {
   return (
     <SafeAreaView style={styles.background}>
       <View>
-        <Text style={styles.title}>Data Mahasiswa</Text>
-        <Text style={styles.text}>Tambahkan dan kelola data mahasiswa</Text>
+        <Text style={styles.title}>Tambah Data Mahasiswa</Text>
       </View>
 
       <View style={styles.container}>
@@ -72,38 +75,12 @@ export default function tambahMahasiswa() {
           onChangeText={text => setUmur(text)}
           value={umur}
         />
-        <Button title="Tambah Mahasiswa" onPress={tambahMahasiswa} />
+        <GenderInput jenisKelamin={jenisKelamin} setJenisKelamin={setJenisKelamin}/>
+        <TouchableOpacity style={styles.button} onPress={tambahMahasiswa}>
+          <Text style={styles.textButton}>Tambah Mahasiswa</Text>
+        </TouchableOpacity>
       </View>
-
-      <FlatList
-        data={mahasiswa}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
-          <MahasiswaCard item={item} hapusMahasiswa={hapusMahasiswa} />
-        )}
-        ListEmptyComponent={
-          <Text style={styles.text}>Belum ada data mahasiswa</Text>
-        }
-      />
     </SafeAreaView>
-  );
-}
-
-function MahasiswaCard({item, hapusMahasiswa}) {
-  return (
-    <View style={styles.taskContainer}>
-      <View>
-        <Text style={styles.task}>Nama: {item.nama}</Text>
-        <Text style={styles.task}>NIM: {item.nim}</Text>
-        <Text style={styles.task}>Jurusan: {item.jurusan}</Text>
-        <Text style={styles.task}>Umur: {item.umur}</Text>
-      </View>
-      <Button
-        title="Hapus"
-        color="red"
-        onPress={() => hapusMahasiswa(item.id)}
-      />
-    </View>
   );
 }
 
@@ -148,5 +125,19 @@ const styles = StyleSheet.create({
   task: {
     fontSize: 16,
     color: '#333',
+  },
+  button: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#007BFF',
+    borderRadius: 5,
+    width: '100%',
+    boxShadow: '4px 4px 0px rgb(0, 0, 0)',
+    borderWidth: 2,
+  },
+  textButton: {
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 16,
   },
 });

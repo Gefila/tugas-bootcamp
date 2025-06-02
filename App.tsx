@@ -2,6 +2,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './src/screen/Home';
+import TambahMahasiswa from './src/screen/TambahMahasiswa';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,17 @@ function RootStack() {
           headerTitleAlign: 'center',
           headerTintColor: '#fff',
           headerStyle: {backgroundColor: '#6200ee'},
+        }}
+      />
+      <Stack.Screen
+        name="TambahMahasiswa"
+        component={TambahMahasiswa}
+        options={{
+          title: 'Tambah Mahasiswa',
+          headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+          headerStyle: {backgroundColor: '#6200ee'},
+          animation: 'slide_from_right',
         }}
       />
     </Stack.Navigator>

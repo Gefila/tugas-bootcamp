@@ -4,13 +4,14 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
   View,
 } from 'react-native';
 import Mahasiswa from '../components/Mahasiswa';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
+  const navigation = useNavigation();
   const [listMahasiswa, setListMahasiswa] = useState([
     {
       id: 1,
@@ -51,13 +52,13 @@ export default function Home() {
       jurusan: 'Teknik Mesin',
       angkatan: '2024',
       jenisKelamin: 'Laki-laki',
-    }
+    },
   ]);
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.title}>Selamat Datang di Aplikasi Mahasiswa</Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TambahMahasiswa')}>
           <Text style={styles.textButton}>Tambah Mahasiswa</Text>
         </TouchableOpacity>
       </View>
