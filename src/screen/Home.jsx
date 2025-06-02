@@ -9,51 +9,11 @@ import {
 } from 'react-native';
 import Mahasiswa from '../components/Mahasiswa';
 import { useNavigation } from '@react-navigation/native';
+import useMahasiswaStore from '../store/useMahasiswaStore';
 
 export default function Home() {
   const navigation = useNavigation();
-  const [listMahasiswa, setListMahasiswa] = useState([
-    {
-      id: 1,
-      nama: 'Gefila Zona Pranata',
-      nim: '123456789',
-      jurusan: 'Teknik Informatika',
-      angkatan: '2020',
-      jenisKelamin: 'Laki-laki',
-    },
-    {
-      id: 2,
-      nama: 'Jane Smith',
-      nim: '987654321',
-      jurusan: 'Sistem Informasi',
-      angkatan: '2021',
-      jenisKelamin: 'Perempuan',
-    },
-    {
-      id: 3,
-      nama: 'Alice Johnson',
-      nim: '456789123',
-      jurusan: 'Teknik Komputer',
-      angkatan: '2022',
-      jenisKelamin: 'Perempuan',
-    },
-    {
-      id: 4,
-      nama: 'Bob Brown',
-      nim: '321654987',
-      jurusan: 'Teknik Elektro',
-      angkatan: '2023',
-      jenisKelamin: 'Laki-laki',
-    },
-    {
-      id: 5,
-      nama: 'Charlie White',
-      nim: '654321789',
-      jurusan: 'Teknik Mesin',
-      angkatan: '2024',
-      jenisKelamin: 'Laki-laki',
-    },
-  ]);
+  const listMahasiswa = useMahasiswaStore((state)=> state.listMahasiswa);
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>

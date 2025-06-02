@@ -17,23 +17,19 @@ export default function TambahMahasiswa() {
   const [nama, setNama] = useState('');
   const [nim, setNim] = useState('');
   const [jurusan, setJurusan] = useState('');
-  const [umur, setUmur] = useState('');
+  const [angkatan, setAngkatan] = useState('');
   const [jenisKelamin, setJenisKelamin] = useState('');
 
   function tambahMahasiswa() {
-    if (nama && nim && jurusan && umur) {
+    if (nama && nim && jurusan && angkatan) {
       const newMhs = {
         id: +new Date(),
         nama,
         nim,
         jurusan,
-        umur,
+        angkatan,
+        jenisKelamin,
       };
-      setMahasiswa([...mahasiswa, newMhs]);
-      setNama('');
-      setNim('');
-      setJurusan('');
-      setUmur('');
     } else {
       alert('Semua data mahasiswa wajib diisi!');
     }
@@ -48,34 +44,48 @@ export default function TambahMahasiswa() {
       <View>
         <Text style={styles.title}>Tambah Data Mahasiswa</Text>
       </View>
-
       <View style={styles.container}>
-        <TextInput
-          placeholder="Nama"
-          style={styles.input}
-          onChangeText={text => setNama(text)}
-          value={nama}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Nama</Text>
+          <TextInput
+            placeholder="Nama"
+            style={styles.input}
+            onChangeText={text => setNama(text)}
+            value={nama}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>NIM</Text>
+          <TextInput
+            placeholder="NIM"
+            style={styles.input}
+            onChangeText={text => setNim(text)}
+            value={nim}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Jurusan</Text>
+          <TextInput
+            placeholder="Jurusan"
+            style={styles.input}
+            onChangeText={text => setJurusan(text)}
+            value={jurusan}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Angkatan</Text>
+          <TextInput
+            placeholder="Angkatan"
+            keyboardType="numeric"
+            style={styles.input}
+            onChangeText={text => setAngkatan(text)}
+            value={angkatan}
+          />
+        </View>
+        <GenderInput
+          jenisKelamin={jenisKelamin}
+          setJenisKelamin={setJenisKelamin}
         />
-        <TextInput
-          placeholder="NIM"
-          style={styles.input}
-          onChangeText={text => setNim(text)}
-          value={nim}
-        />
-        <TextInput
-          placeholder="Jurusan"
-          style={styles.input}
-          onChangeText={text => setJurusan(text)}
-          value={jurusan}
-        />
-        <TextInput
-          placeholder="Umur"
-          keyboardType="numeric"
-          style={styles.input}
-          onChangeText={text => setUmur(text)}
-          value={umur}
-        />
-        <GenderInput jenisKelamin={jenisKelamin} setJenisKelamin={setJenisKelamin}/>
         <TouchableOpacity style={styles.button} onPress={tambahMahasiswa}>
           <Text style={styles.textButton}>Tambah Mahasiswa</Text>
         </TouchableOpacity>
@@ -139,5 +149,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 16,
+  },
+  label: {
+    fontSize: 16,
+  },
+  inputContainer: {
+    marginBottom: 3,
   },
 });
