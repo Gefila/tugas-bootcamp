@@ -12,15 +12,17 @@ import {
 } from 'react-native';
 import GenderInput from '../components/GenderInput';
 import useMahasiswaStore from '../store/useMahasiswaStore';
+import { useNavigation } from '@react-navigation/native';
 
-export default function TambahMahasiswa() {
-  const [nama, setNama] = useState('');
-  const [nim, setNim] = useState('');
-  const [jurusan, setJurusan] = useState('');
-  const [angkatan, setAngkatan] = useState('');
-  const [jenisKelamin, setJenisKelamin] = useState('');
+export default function FormMahasiswa({route}) {
+  const [nama, setNama] = useState((route.params?.data?.nama) || '');
+  const [nim, setNim] = useState((route.params?.data?.nim) || '');
+  const [jurusan, setJurusan] = useState((route.params?.data?.jurusan) || '');
+  const [angkatan, setAngkatan] = useState((route.params?.data?.angkatan) || '');
+  const [jenisKelamin, setJenisKelamin] = useState((route.params?.data?.jenisKelamin) || '');
 
   const tambahMahasiswa = useMahasiswaStore(state => state.addMahasiswa);
+  const navigation = useNavigation();
 
   function clearForm() {
     setNama('');
@@ -50,7 +52,7 @@ export default function TambahMahasiswa() {
   return (
     <SafeAreaView style={styles.background}>
       <View>
-        <Text style={styles.title}>Tambah Data Mahasiswa</Text>
+        <Text style={styles.title}>{route.params.state === 'add' ? 'Tambah' : 'Edit'} Data Mahasiswa</Text>
       </View>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -97,8 +99,24 @@ export default function TambahMahasiswa() {
           jenisKelamin={jenisKelamin}
           setJenisKelamin={setJenisKelamin}
         />
-        <TouchableOpacity style={styles.button} onPress={handleTambahMahasiswa}>
-          <Text style={styles.textButton}>Tambah Mahasiswa</Text>
+        <TouchableOpacity style={styles.button} onPress={() =>{
+          if (route.params.state === 'add') {
+            handleTambahMahasiswa();
+          } else {
+            const updatedMahasiswa = {
+              id: route.params.data.id,
+              nama,
+              nim,
+              jurusan,
+              angkatan,
+              jenisKelamin,
+            };
+            useMahasiswaStore.getState().updateMahasiswa(updatedMahasiswa);
+            clearForm();
+            navigation.goBack();
+          }
+        }}>
+          <Text style={styles.textButton}>{route.params.state === 'add' ? 'Tambah' : 'Edit'} Mahasiswa</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

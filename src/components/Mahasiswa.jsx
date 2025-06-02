@@ -1,17 +1,35 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {Button, Image, StyleSheet, Text, View} from 'react-native';
 
-export default function Mahasiswa({data}) {
+export default function Mahasiswa({data, onDeleteMahasiswa}) {
   const {id, nama, nim, jurusan, angkatan, jenisKelamin} = data;
+  const navigation = useNavigation();
   return (
     <View style={styles.card}>
-      <View style={styles.nameWrapper}>
-        <Text style={styles.nama}>{nama}</Text>
-        <View style={styles.cardAngkatan}>
-          <Text style={styles.angkatan}>{angkatan}</Text>
+      <View style={{flexDirection: 'column'}}>
+        <View style={styles.nameWrapper}>
+          <Text style={styles.nama} numberOfLines={1} ellipsizeMode="tail">
+            {nama}
+          </Text>
+          <View style={styles.cardAngkatan}>
+            <Text style={styles.angkatan}>{angkatan}</Text>
+          </View>
         </View>
+        <Text style={styles.nim}>{nim}</Text>
+        <Text style={{marginBottom: 20}}>{jurusan}</Text>
       </View>
-      <Text style={styles.nim}>{nim}</Text>
-      <Text>{jurusan}</Text>
+      <View style={styles.actionButtons}>
+        <Button title="Edit" onPress={() => navigation.navigate('FormMahasiswa', {
+          name: 'Edit Mahasiswa',
+          data: {id, nama, nim, jurusan, angkatan, jenisKelamin},
+          state: 'edit',
+        })} />
+        <Button
+          title="Hapus"
+          onPress={() => onDeleteMahasiswa(id)}
+          color={'red'}
+        />
+      </View>
     </View>
   );
 }
@@ -25,6 +43,8 @@ const styles = StyleSheet.create({
     boxShadow: '4px 4px 0px rgb(0, 0, 0)',
     borderWidth: 2,
     marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 25,
   },
   nama: {
     fontSize: 26,
@@ -51,5 +71,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    gap: 10,
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderWidth: 2,
+    padding: 5,
+    borderRadius: 5,
+    left: '50%',
+    transform: [{translateX: -50}],
+    bottom: -30,
   },
 });

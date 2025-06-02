@@ -14,13 +14,20 @@ import useMahasiswaStore from '../store/useMahasiswaStore';
 export default function Home() {
   const navigation = useNavigation();
   const listMahasiswa = useMahasiswaStore(state => state.listMahasiswa);
+  const removeMahasiswa = useMahasiswaStore(state => state.removeMahasiswa);
+
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.title}>Selamat Datang di Aplikasi Mahasiswa</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('TambahMahasiswa')}>
+          onPress={() =>
+            navigation.navigate('FormMahasiswa', {
+              name: 'Tambah Mahasiswa',
+              state: 'add',
+            })
+          }>
           <Text style={styles.textButton}>Tambah Mahasiswa</Text>
         </TouchableOpacity>
       </View>
@@ -28,7 +35,9 @@ export default function Home() {
         <FlatList
           data={listMahasiswa}
           keyExtractor={item => item.id}
-          renderItem={({item}) => <Mahasiswa data={item} />}
+          renderItem={({item}) => (
+            <Mahasiswa data={item} onDeleteMahasiswa={removeMahasiswa} />
+          )}
           style={{width: '100%'}}
           contentContainerStyle={{paddingBottom: 200}}
         />
@@ -45,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    padding: 10,
   },
   text: {
     fontSize: 20,
