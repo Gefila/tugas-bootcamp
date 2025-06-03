@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
 
 export default function Mahasiswa({data, onDeleteMahasiswa}) {
@@ -16,14 +16,22 @@ export default function Mahasiswa({data, onDeleteMahasiswa}) {
           </View>
         </View>
         <Text style={styles.nim}>{nim}</Text>
-        <Text style={{marginBottom: 20}}>{jurusan}</Text>
+        <Text>{jurusan}</Text>
+        <Text style={{marginBottom: 13}}>
+          {jenisKelamin}
+        </Text>
       </View>
       <View style={styles.actionButtons}>
-        <Button title="Edit" onPress={() => navigation.navigate('FormMahasiswa', {
-          name: 'Edit Mahasiswa',
-          data: {id, nama, nim, jurusan, angkatan, jenisKelamin},
-          state: 'edit',
-        })} />
+        <Button
+          title="Edit"
+          onPress={() =>
+            navigation.navigate('FormMahasiswa', {
+              name: 'Edit Mahasiswa',
+              data: {id, nama, nim, jurusan, angkatan, jenisKelamin},
+              state: 'edit',
+            })
+          }
+        />
         <Button
           title="Hapus"
           onPress={() => onDeleteMahasiswa(id)}
@@ -36,7 +44,7 @@ export default function Mahasiswa({data, onDeleteMahasiswa}) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white',
+    backgroundColor: '#dcebfe',
     padding: 10,
     marginVertical: 5,
     borderRadius: 5,
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cardAngkatan: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#5294ff',
     padding: 5,
     borderRadius: 3,
     marginTop: 5,

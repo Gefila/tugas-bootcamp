@@ -49,7 +49,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '##dcebfe',
   },
   container: {
     alignItems: 'center',
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     padding: 10,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#5294ff',
     borderRadius: 5,
     width: '100%',
     boxShadow: '4px 4px 0px rgb(0, 0, 0)',
@@ -79,5 +79,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });

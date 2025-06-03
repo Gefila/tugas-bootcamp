@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     padding: 10,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#5294ff',
     borderRadius: 5,
     width: '100%',
     boxShadow: '4px 4px 0px rgb(0, 0, 0)',
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 16,
+    fontWeight: 'bold',
   },
   label: {
     fontSize: 16,

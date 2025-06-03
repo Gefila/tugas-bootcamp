@@ -16,7 +16,7 @@ function RootStack() {
           title: 'Aplikasi Data Mahasiswa',
           headerTitleAlign: 'center',
           headerTintColor: '#fff',
-          headerStyle: {backgroundColor: '#6200ee'},
+          headerStyle: {backgroundColor: '#5294ff'},
         }}
       />
       <Stack.Screen
@@ -27,7 +27,7 @@ function RootStack() {
           animation: 'slide_from_right',
           headerTitleAlign: 'center',
           headerTintColor: '#fff',
-          headerStyle: {backgroundColor: '#6200ee'},
+          headerStyle: {backgroundColor: '#5294ff'},
         })}
       />
     </Stack.Navigator>
