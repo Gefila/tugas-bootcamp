@@ -30,6 +30,16 @@ export default function Home() {
           }>
           <Text style={styles.textButton}>Tambah Mahasiswa</Text>
         </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
+          <View style={styles.box}>
+            <Text>Daftar Mahasiswa</Text>
+          </View>
+          <View style={styles.box}>
+            <Text>
+              Jumlah Mahasiswa ({listMahasiswa.length})
+            </Text>
+          </View>
+        </View>
       </View>
       <View>
         <FlatList
@@ -80,5 +90,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  box: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#dcebfe',
+    borderRadius: 5,
+    boxShadow: '4px 4px 0px rgb(0, 0, 0)',
+    borderWidth: 2,
+    alignSelf: 'flex-end',
   },
 });
