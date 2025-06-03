@@ -25,20 +25,33 @@ export default function Mahasiswa({data, onDeleteMahasiswa}) {
 
   return (
     <View style={styles.card}>
-      <View style={{flexDirection: 'column'}}>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={{
+            uri:
+              jenisKelamin == 'Laki-laki'
+                ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlWi6fx13t3nmhNDxOwxj80l8QTzZrnf2_lA&s'
+                : 'https://img.freepik.com/premium-vector/avatar-profile-icon-flat-style-female-user-profile-vector-illustration-isolated-background-women-profile-sign-business-concept_157943-38866.jpg?semt=ais_hybrid&w=740',
+          }}
+          style={{width: 100, height: 100, borderRadius: 50}}
+        />
+      </View>
+      <View style={{flexDirection: 'column', marginLeft: 15}}>
         <View style={styles.nameWrapper}>
           <Text style={styles.nama} numberOfLines={1} ellipsizeMode="tail">
             {nama}
           </Text>
-          <View style={styles.cardAngkatan}>
-            <Text style={styles.angkatan}>{angkatan}</Text>
-          </View>
         </View>
         <Text style={styles.nim}>{nim}</Text>
         <Text>{jurusan}</Text>
-        <Text style={{marginBottom: 13}}>
-          {jenisKelamin}
-        </Text>
+      </View>
+      <View style={styles.cardAngkatan}>
+        <Text style={styles.angkatan}>{angkatan}</Text>
       </View>
       <View style={styles.actionButtons}>
         <Button
@@ -51,11 +64,7 @@ export default function Mahasiswa({data, onDeleteMahasiswa}) {
             })
           }
         />
-        <Button
-          title="Hapus"
-          onPress={() => confirmAlert()}
-          color={'red'}
-        />
+        <Button title="Hapus" onPress={() => confirmAlert()} color={'red'} />
       </View>
     </View>
   );
@@ -72,6 +81,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginTop: 10,
     marginBottom: 25,
+    display: 'flex',
+    flexDirection: 'row',
   },
   nama: {
     fontSize: 26,
@@ -93,6 +104,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     boxShadow: '2px 2px 0px rgb(0, 0, 0)',
     borderWidth: 1,
+    position: 'absolute',
+    right: 5,
+    bottom: 5,
   },
   nameWrapper: {
     flexDirection: 'row',
