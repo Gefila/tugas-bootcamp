@@ -1,9 +1,28 @@
 import {useNavigation} from '@react-navigation/native';
-import {Button, Image, StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, Image, StyleSheet, Text, View} from 'react-native';
 
 export default function Mahasiswa({data, onDeleteMahasiswa}) {
   const {id, nama, nim, jurusan, angkatan, jenisKelamin} = data;
   const navigation = useNavigation();
+
+  function confirmAlert() {
+    return Alert.alert(
+      'Konfirmasi Hapus',
+      'Apakah Anda yakin ingin menghapus mahasiswa ini?',
+      [
+        {
+          text: 'Batal',
+          style: 'cancel',
+        },
+        {
+          text: 'Hapus',
+          onPress: () => onDeleteMahasiswa(id),
+          style: 'destructive',
+        },
+      ],
+    );
+  }
+
   return (
     <View style={styles.card}>
       <View style={{flexDirection: 'column'}}>
@@ -34,7 +53,7 @@ export default function Mahasiswa({data, onDeleteMahasiswa}) {
         />
         <Button
           title="Hapus"
-          onPress={() => onDeleteMahasiswa(id)}
+          onPress={() => confirmAlert()}
           color={'red'}
         />
       </View>

@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {
+  Alert,
   Button,
   FlatList,
   SafeAreaView,
@@ -12,14 +13,16 @@ import {
 } from 'react-native';
 import GenderInput from '../components/GenderInput';
 import useMahasiswaStore from '../store/useMahasiswaStore';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 export default function FormMahasiswa({route}) {
-  const [nama, setNama] = useState((route.params?.data?.nama) || '');
-  const [nim, setNim] = useState((route.params?.data?.nim) || '');
-  const [jurusan, setJurusan] = useState((route.params?.data?.jurusan) || '');
-  const [angkatan, setAngkatan] = useState((route.params?.data?.angkatan) || '');
-  const [jenisKelamin, setJenisKelamin] = useState((route.params?.data?.jenisKelamin) || '');
+  const [nama, setNama] = useState(route.params?.data?.nama || '');
+  const [nim, setNim] = useState(route.params?.data?.nim || '');
+  const [jurusan, setJurusan] = useState(route.params?.data?.jurusan || '');
+  const [angkatan, setAngkatan] = useState(route.params?.data?.angkatan || '');
+  const [jenisKelamin, setJenisKelamin] = useState(
+    route.params?.data?.jenisKelamin || '',
+  );
 
   const tambahMahasiswa = useMahasiswaStore(state => state.addMahasiswa);
   const navigation = useNavigation();
@@ -47,12 +50,35 @@ export default function FormMahasiswa({route}) {
     };
     tambahMahasiswa(newMahasiswa);
     clearForm();
+    showAlert();
+  }
+
+  function showAlert() {
+    Alert.alert(
+      `Berhasil ${route.params.state === 'add' ? 'Tambah' : 'Edit'} Mahasiswa`,
+      `Data mahasiswa berhasil ${
+        route.params.state === 'add' ? 'ditambahkan' : 'diedit'
+      }.`,
+      [
+        {
+          text: 'OK',
+          onPress: () => {
+            if (route.params.state !== 'add') {
+              navigation.goBack();
+            }
+          },
+        },
+      ],
+      {cancelable: false},
+    );
   }
 
   return (
     <SafeAreaView style={styles.background}>
       <View>
-        <Text style={styles.title}>{route.params.state === 'add' ? 'Tambah' : 'Edit'} Data Mahasiswa</Text>
+        <Text style={styles.title}>
+          {route.params.state === 'add' ? 'Tambah' : 'Edit'} Data Mahasiswa
+        </Text>
       </View>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -99,24 +125,28 @@ export default function FormMahasiswa({route}) {
           jenisKelamin={jenisKelamin}
           setJenisKelamin={setJenisKelamin}
         />
-        <TouchableOpacity style={styles.button} onPress={() =>{
-          if (route.params.state === 'add') {
-            handleTambahMahasiswa();
-          } else {
-            const updatedMahasiswa = {
-              id: route.params.data.id,
-              nama,
-              nim,
-              jurusan,
-              angkatan,
-              jenisKelamin,
-            };
-            useMahasiswaStore.getState().updateMahasiswa(updatedMahasiswa);
-            clearForm();
-            navigation.goBack();
-          }
-        }}>
-          <Text style={styles.textButton}>{route.params.state === 'add' ? 'Tambah' : 'Edit'} Mahasiswa</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            if (route.params.state === 'add') {
+              handleTambahMahasiswa();
+            } else {
+              const updatedMahasiswa = {
+                id: route.params.data.id,
+                nama,
+                nim,
+                jurusan,
+                angkatan,
+                jenisKelamin,
+              };
+              useMahasiswaStore.getState().updateMahasiswa(updatedMahasiswa);
+              clearForm();
+              showAlert();
+            }
+          }}>
+          <Text style={styles.textButton}>
+            {route.params.state === 'add' ? 'Tambah' : 'Edit'} Mahasiswa
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
